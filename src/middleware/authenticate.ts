@@ -5,7 +5,13 @@ import { JwtPayload } from 'jsonwebtoken';
 interface CustomJwtPayload extends JwtPayload {
     id: string;
 }
-
+declare global {
+    namespace Express {
+        interface Request {
+            user?: {id:string} | JwtPayload;
+        }
+    }
+}
 
 
 const JWT_SECRET = process.env.JWT_SECRET!;
