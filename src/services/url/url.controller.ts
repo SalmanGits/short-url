@@ -25,7 +25,7 @@ export const shortUrl = async (req: Request, res: Response, next: NextFunction) 
             longUrl,
             shortUrl,
             topic,
-            user: req.user.id
+            user: req.user?.id
         });
 
         await newUrl.save();
