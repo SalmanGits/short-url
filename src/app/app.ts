@@ -2,6 +2,7 @@ import express from "express"
 import cors from "cors"
 import Database from "../db/db"
 import authRoute from "../routes/auth.route"
+import urlRoute from "../routes/url.route"
 import errorHandler from "../middleware/errorHandler"
 
 class App {
@@ -15,6 +16,7 @@ class App {
     mountRoutes() {
         this.app.use(errorHandler as any)
         this.app.use("/api/v1/auth", authRoute)
+        this.app.use("/api", urlRoute)
 
     }
     initMiddlewares() {

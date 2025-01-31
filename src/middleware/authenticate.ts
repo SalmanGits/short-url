@@ -1,5 +1,11 @@
 import { Request, Response, NextFunction } from 'express';
 import jwt from 'jsonwebtoken';
+import { JwtPayload } from 'jsonwebtoken';
+
+interface CustomJwtPayload extends JwtPayload {
+    id: string;
+}
+
 
 
 const JWT_SECRET = process.env.JWT_SECRET!;
@@ -12,8 +18,8 @@ export const authenticate = (req: Request, res: Response, next: NextFunction) =>
     }
 
     try {
-        const decoded = jwt.verify(token, JWT_SECRET);
-        req.user = decoded;
+        const decoded = jwt.verify(token, JWT_SECRET) as CustomJwtPayload;
+        req.user = { id: decoded.id };
         next();
     } catch (error) {
         next(error);
